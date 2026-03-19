@@ -1,0 +1,30 @@
+name: Release Charts
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  changed-charts:
+    runs-on: ubuntu-latest
+    outputs:
+      charts: ${{ steps.list.outputs.charts }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: List charts
+        id: list
+        run: |
+          charts=$(find charts -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          echo "charts=$charts" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: changed-charts
+    strategy:
+      matrix:
+        chart: ${{ fromJson(needs.changed-charts.outputs.charts) }}
+    uses: recmanj/shared-workflows/.github/workflows/helm-publish.yaml@main
+    with:
+      chart_path: charts/${{ matrix.chart }}

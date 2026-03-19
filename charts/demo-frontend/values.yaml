@@ -1,0 +1,31 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/recmanj/demo-frontend
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: ca-issuer
+  hosts: []
+  tls: []
+
+serviceAccount:
+  name: ""
+
+backendUrl: ""
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi

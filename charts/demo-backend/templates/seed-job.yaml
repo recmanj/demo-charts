@@ -1,0 +1,32 @@
+{{- if .Values.seedJob.enabled -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "demo-backend.fullname" . }}-seed
+  labels:
+    {{- include "demo-backend.labels" . | nindent 4 }}
+spec:
+  backoffLimit: 5
+  template:
+    spec:
+      initContainers:
+        - name: wait-for-backend
+          image: {{ .Values.seedJob.image }}
+          command:
+            - sh
+            - -c
+            - |
+              until curl -sf http://{{ include "demo-backend.fullname" . }}:{{ .Values.service.port }}{{ .Values.healthCheck.path }}; do
+                echo "Waiting for backend..."
+                sleep 3
+              done
+      containers:
+        - name: seed
+          image: {{ .Values.seedJob.image }}
+          command:
+            - sh
+            - -c
+            - |
+              curl -sf -X POST http://{{ include "demo-backend.fullname" . }}:{{ .Values.service.port }}/api/seed
+      restartPolicy: OnFailure
+{{- end }}

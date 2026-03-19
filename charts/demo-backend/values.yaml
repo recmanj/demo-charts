@@ -1,0 +1,44 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/recmanj/demo-backend
+  tag: ""
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+ingress:
+  enabled: false
+  className: traefik
+  annotations:
+    cert-manager.io/cluster-issuer: ca-issuer
+  hosts: []
+  tls: []
+
+env:
+  DATABASE_URL: ""
+
+envFromSecret: ""
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+healthCheck:
+  path: /healthz
+  port: 8000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+serviceAccount:
+  name: ""
+
+seedJob:
+  enabled: false
+  image: curlimages/curl:8.7.1

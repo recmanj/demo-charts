@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "demo-frontend.fullname" . }}
+  labels:
+    {{- include "demo-frontend.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "demo-frontend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "demo-frontend.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "demo-frontend.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          volumeMounts:
+            - name: env-config
+              mountPath: /usr/share/nginx/html/env-config.js
+              subPath: env-config.js
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: env-config
+          configMap:
+            name: {{ include "demo-frontend.fullname" . }}-env-config
