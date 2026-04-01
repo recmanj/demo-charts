@@ -20,6 +20,8 @@ ingress:
 env:
   DATABASE_URL: ""
 
+envSecret: {}
+
 envFromSecret: ""
 
 resources:

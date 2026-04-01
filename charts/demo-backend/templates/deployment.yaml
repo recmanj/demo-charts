@@ -25,7 +25,14 @@ spec:
               protocol: TCP
           env:
             - name: DATABASE_URL
+            {{- if .Values.envSecret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.envSecret.name }}
+                  key: {{ .Values.envSecret.key }}
+            {{- else }}
               value: {{ .Values.env.DATABASE_URL | quote }}
+            {{- end }}
           {{- if .Values.envFromSecret }}
           envFrom:
             - secretRef:
