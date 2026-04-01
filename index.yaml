@@ -3,6 +3,16 @@ entries:
   demo-backend:
   - apiVersion: v2
     appVersion: 2.0.0
+    created: "2026-04-01T13:59:09.715870116Z"
+    description: FastAPI demo backend
+    digest: 3a9f0bb95aeb8cbb571574cb6220f9087266f81b07160b2ce60bb9da9ef0df0a
+    name: demo-backend
+    type: application
+    urls:
+    - https://github.com/recmanj/demo-charts/releases/download/demo-backend-0.2.1/demo-backend-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 2.0.0
     created: "2026-04-01T12:15:00.523399088Z"
     description: FastAPI demo backend
     digest: fe82ae73d018d911e129d087ecb3fc4fffe33b5fa46b6a01b77dbbc1db3d8f50
@@ -22,4 +32,4 @@ entries:
     urls:
     - https://github.com/recmanj/demo-charts/releases/download/demo-frontend-0.2.0/demo-frontend-0.2.0.tgz
     version: 0.2.0
-generated: "2026-04-01T12:15:00.714202269Z"
+generated: "2026-04-01T13:59:09.715879143Z"
