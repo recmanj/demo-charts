@@ -1,0 +1,14 @@
+apiVersion: v2
+name: demo-app
+description: Umbrella chart deploying the demo backend and frontend together
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: demo-backend
+    version: 0.2.2
+    repository: https://recmanj.github.io/demo-charts
+  - name: demo-frontend
+    version: 0.2.1
+    repository: https://recmanj.github.io/demo-charts

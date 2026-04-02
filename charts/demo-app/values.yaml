@@ -1,0 +1,94 @@
+# -------------------------------------------------------
+# Umbrella chart values for demo-app
+#
+# Subchart values are namespaced under their chart name.
+# Any key set here overrides the subchart's own defaults.
+# -------------------------------------------------------
+
+# -- demo-backend subchart overrides
+demo-backend:
+  replicaCount: 2
+
+  image:
+    repository: ghcr.io/recmanj/demo-backend
+    tag: ""
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 8000
+
+  ingress:
+    enabled: false
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: ca-issuer
+    hosts: []
+    tls: []
+
+  env:
+    DATABASE_URL: ""
+
+  envSecret: {}
+
+  envFromSecret: ""
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  healthCheck:
+    path: /healthz
+    port: 8000
+    initialDelaySeconds: 10
+    periodSeconds: 10
+
+  serviceAccount:
+    name: ""
+
+  seedJob:
+    enabled: false
+    image: curlimages/curl:8.7.1
+
+# -- demo-frontend subchart overrides
+demo-frontend:
+  replicaCount: 2
+
+  image:
+    repository: ghcr.io/recmanj/demo-frontend
+    tag: ""
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  ingress:
+    enabled: false
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: ca-issuer
+    hosts: []
+    tls: []
+
+  serviceAccount:
+    name: ""
+
+  # Set this to the externally-reachable URL of the backend API.
+  # This value is injected into the browser via env-config.js,
+  # so it must be a URL the end-user's browser can reach
+  # (e.g., https://api.example.com), NOT a cluster-internal
+  # service name.
+  backendUrl: ""
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi

@@ -1,0 +1,14 @@
+The demo-app has been deployed with release name {{ .Release.Name }}.
+
+Backend service: {{ .Release.Name }}-demo-backend:{{ index .Values "demo-backend" "service" "port" }}
+Frontend service: {{ .Release.Name }}-demo-frontend:{{ index .Values "demo-frontend" "service" "port" }}
+
+{{- if index .Values "demo-frontend" "backendUrl" }}
+Frontend is configured to reach backend at: {{ index .Values "demo-frontend" "backendUrl" }}
+{{- else }}
+
+WARNING: demo-frontend.backendUrl is not set.
+The frontend will not be able to reach the backend API.
+Set it to the externally-reachable URL of the backend, e.g.:
+  --set demo-frontend.backendUrl=https://api.example.com
+{{- end }}

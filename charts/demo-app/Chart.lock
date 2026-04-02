@@ -1,0 +1,9 @@
+dependencies:
+- name: demo-backend
+  repository: https://recmanj.github.io/demo-charts
+  version: 0.2.2
+- name: demo-frontend
+  repository: https://recmanj.github.io/demo-charts
+  version: 0.2.1
+digest: sha256:1ba79c84bc1315933db1a1eb3579e9aaa9f63ba7510d1815b07114c150c92738
+generated: "2026-04-02T14:50:26.891737+02:00"
