@@ -1,5 +1,23 @@
 apiVersion: v1
 entries:
+  demo-app:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-04-02T12:57:23.35908305Z"
+    dependencies:
+    - name: demo-backend
+      repository: https://recmanj.github.io/demo-charts
+      version: 0.2.2
+    - name: demo-frontend
+      repository: https://recmanj.github.io/demo-charts
+      version: 0.2.1
+    description: Umbrella chart deploying the demo backend and frontend together
+    digest: 2c660a016f463b1a00411602e96746b8340f312ec3ed64edeb7bc3e9ddf386f2
+    name: demo-app
+    type: application
+    urls:
+    - https://github.com/recmanj/demo-charts/releases/download/demo-app-0.1.0/demo-app-0.1.0.tgz
+    version: 0.1.0
   demo-backend:
   - apiVersion: v2
     appVersion: 2.1.1
@@ -52,4 +70,4 @@ entries:
     urls:
     - https://github.com/recmanj/demo-charts/releases/download/demo-frontend-0.2.0/demo-frontend-0.2.0.tgz
     version: 0.2.0
-generated: "2026-04-01T16:15:53.965156686Z"
+generated: "2026-04-02T12:57:23.359097817Z"
