@@ -25,6 +25,10 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
+      - name: Add chart dependency repos
+        run: |
+          helm repo add demo-charts https://recmanj.github.io/demo-charts
+
       - name: Build chart dependencies
         run: |
           for chart in charts/*/; do
